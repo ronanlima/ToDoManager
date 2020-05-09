@@ -1,7 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {Login, Register, ToDoTasks} from '../screens/screens';
+import {Login, Register} from '../screens/screens';
 import React from 'react';
-// import { TaskTab } from './taskTabs';
 
 const Stack = createStackNavigator();
 
@@ -15,9 +14,6 @@ const Routes = () => {
             <Stack.Screen 
                 name="Register"
                 component={Register} />
-            {/* <Stack.Screen
-                name="TaskList"
-                component={TaskTab} /> */}
         </Stack.Navigator>
     );
 }

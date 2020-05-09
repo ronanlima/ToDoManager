@@ -1,7 +1,6 @@
 import React, {Component, useState} from 'react'
 import {SafeAreaView, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Button, Image, Alert} from 'react-native'
 import {signInOnFirebaseAsync} from '../services/firebaseApi';
-// import {CommonActions} from '@react-navigation/native';
 
 const img = require('../assets/icone-todolist.png');
 
@@ -13,12 +12,6 @@ const Login = (props) => {
         try {
             const user = await signInOnFirebaseAsync(email, senha);
             Alert.alert(`User autenticated`,`User ${user.email} has successfuly been authenticated!`);
-            // props.navigation.dispatch(
-            //     CommonActions.reset({
-            //         index: 0,
-            //         routes: [{name: 'TaskList'}],
-            //     }),
-            // );
         } catch (error) {
             Alert.alert(`Login failed`, error.message);
         }
