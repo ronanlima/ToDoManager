@@ -16,10 +16,6 @@ const wrappedRoutes = () => {
     );
 };
 
-// const Index = () => {
-//     return <Login email='ronan.saleslima@gmail.com' />;
-// };
-
 AppRegistry.registerComponent(appName, () => {
     initializeFirebaseApi();
     return wrappedRoutes

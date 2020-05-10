@@ -5,10 +5,10 @@ import {signInOnFirebaseAsync} from '../services/firebaseApi';
 const img = require('../assets/icone-todolist.png');
 
 const Login = (props) => {
-    const [email, setEmail] = useState(props.email);
+    const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
 
-    const _signInAsync = async () => {
+    const signInAsync = async () => {
         try {
             const user = await signInOnFirebaseAsync(email, senha);
             Alert.alert(`User autenticated`,`User ${user.email} has successfuly been authenticated!`);
@@ -38,7 +38,7 @@ const Login = (props) => {
                         onChangeText={password => setSenha(password)} />
                     <Button
                         title='Sign in'
-                        onPress={() => {_signInAsync()}} />
+                        onPress={() => {signInAsync()}} />
                     <View style={styles.textContainer}>
                         <Text>Não é um membro? Crie </Text>
                         <Text style={styles.textRegister} 
