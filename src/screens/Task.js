@@ -3,16 +3,38 @@ import {View, TextInput, Switch, Text, Button, StyleSheet, Alert} from 'react-na
 import {writeTaskOnFirebase} from '../services/firebaseApi';
 
 export default class Task extends Component {
+    static navigationOptions = {
+        title: 'Task'    
+    }
 
     state = {
+        key: '',
         title: '',
         resume: '', 
         priority: true, 
         isDone: false
     }
 
+    constructor(props) {
+        super(props);
+
+        try {
+            const { task } = this.props.route.params;
+            this.state = {
+                key: task.key,
+                title: task.title,
+                resume: task.resume,
+                priority: task.priority,
+                isDone: task.isDone
+            };
+        } catch (error) {
+            console.log('error', error);
+        }
+    }
+
     async _saveTaskAsync() {
         var task = {
+            key: this.state.key,
             title: this.state.title,
             resume: this.state.resume,
             priority: this.state.priority,

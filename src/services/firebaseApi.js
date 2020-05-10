@@ -46,8 +46,10 @@ export const writeTaskOnFirebase = async(task) => {
     var tasksReference = firebase
         .database()
         .ref(user.uid);
-    
-    const key = tasksReference
+
+    const key = task.key ? 
+        task.key : 
+        tasksReference
         .child('tasks')
         .push()
         .key;
