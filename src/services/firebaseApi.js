@@ -24,3 +24,18 @@ export async function signInOnFirebaseAsync(email, password) {
     const user = await firebase.auth().signInWithEmailAndPassword(email, password);
     return user;
 }
+
+export const currenteFirebaseUser = () => {
+    return new Promise((resolve, reject) => {
+        var unsubscribe = null;
+        unsubscribe = firebase
+            .auth()
+            .onAuthStateChanged((user) => {
+                resolve(user);
+            }, (error) => {
+                reject(error);
+            }, () => {
+                unsubscribe();
+            });
+    });
+};
