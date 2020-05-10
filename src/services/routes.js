@@ -1,8 +1,29 @@
 import {createStackNavigator} from '@react-navigation/stack';
-import {Login, Register} from '../screens/screens';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {Image} from 'react-native';
+
+import {Login, Register, ToDoTasks, DoneTasks} from '../screens/screens';
 import React from 'react';
 
 const Stack = createStackNavigator();
+const Tab = createMaterialTopTabNavigator();
+
+export const TaskTab = () => { 
+    return (
+        <Tab.Navigator
+            tabBarOptions={{
+                activeTintColor: 'tomato', 
+                inactiveTintColor: 'gray', 
+                iconStyle: {
+                    width: 20, 
+                    height: 20
+                },
+            }}>
+            <Tab.Screen name="To Do" component={ToDoTasks} />
+            <Tab.Screen name="Done" component={DoneTasks} />
+        </Tab.Navigator>
+    );
+};
 
 const Routes = () => {
     return(
@@ -14,6 +35,7 @@ const Routes = () => {
             <Stack.Screen 
                 name="Register"
                 component={Register} />
+            <Stack.Screen name="TaskList" component={TaskTab} />
         </Stack.Navigator>
     );
 }

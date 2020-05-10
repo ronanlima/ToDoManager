@@ -1,17 +1,24 @@
 import React, {Component, useState} from 'react'
-import {SafeAreaView, View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Button, Image, Alert} from 'react-native'
+import {View, Text, TextInput, StyleSheet, KeyboardAvoidingView, Button, Image, Alert} from 'react-native'
 import {signInOnFirebaseAsync} from '../services/firebaseApi';
+import {CommonActions} from '@react-navigation/native';
 
 const img = require('../assets/icone-todolist.png');
 
 const Login = (props) => {
-    const [email, setEmail] = useState('');
+    const [email, setEmail] = useState(props.email);
     const [senha, setSenha] = useState('');
 
     const signInAsync = async () => {
         try {
             const user = await signInOnFirebaseAsync(email, senha);
             Alert.alert(`User autenticated`,`User ${user.email} has successfuly been authenticated!`);
+            props.navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{name: 'TaskList'}],
+                }),
+            );
         } catch (error) {
             Alert.alert(`Login failed`, error.message);
         }
@@ -38,7 +45,7 @@ const Login = (props) => {
                         onChangeText={password => setSenha(password)} />
                     <Button
                         title='Sign in'
-                        onPress={() => {signInAsync()}} />
+                        onPress={() => signInAsync()} />
                     <View style={styles.textContainer}>
                         <Text>Não é um membro? Crie </Text>
                         <Text style={styles.textRegister} 
