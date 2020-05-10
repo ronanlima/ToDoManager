@@ -25,7 +25,7 @@ export async function signInOnFirebaseAsync(email, password) {
     return user;
 }
 
-export const currenteFirebaseUser = () => {
+export const currentFirebaseUser = () => {
     return new Promise((resolve, reject) => {
         var unsubscribe = null;
         unsubscribe = firebase
@@ -38,4 +38,19 @@ export const currenteFirebaseUser = () => {
                 unsubscribe();
             });
     });
+};
+
+export const writeTaskOnFirebase = async(task) => {
+    const user = await currentFirebaseUser();
+
+    var tasksReference = firebase
+        .database()
+        .ref(user.uid);
+    
+    const key = tasksReference
+        .child('tasks')
+        .push()
+        .key;
+
+    return await tasksReference.child(`tasks/${key}`).update(task);
 };
